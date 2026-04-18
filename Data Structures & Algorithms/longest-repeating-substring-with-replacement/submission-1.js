@@ -1,0 +1,30 @@
+class Solution {
+    /**
+     * @param {string} s
+     * @param {number} k
+     * @return {number}
+     */
+    characterReplacement(s, k) {
+        let maxf = 0;
+        let res = 0;
+
+        let count = new Map();
+
+        let l = 0;
+
+        for(let r = 0; r < s.length; r++){
+            count.set(s[r], (count.get(s[r]) || 0) + 1);
+
+            maxf = Math.max(maxf, count.get(s[r]));
+
+            while(r - l + 1 - maxf > k){
+                count.set(s[l], (count.get(s[l]) || 0) - 1);
+                l++;
+            }
+
+            res = Math.max(r - l + 1, res);
+        }
+
+        return res;
+    }
+}
